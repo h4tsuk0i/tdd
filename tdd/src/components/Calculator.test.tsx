@@ -8,14 +8,14 @@ describe("Calculator component", () => {
   });
 });
 
-test("adds the two numbers", () => {
+test("adds two numbers", () => {
   const result = sum(2, 3);
   render(<Calculator initialResult={0} />);
   fireEvent.click(screen.getByRole("button", { name: /result/i }));
   expect(screen.getByText("=" + " " + result.toString())).toBeInTheDocument();
 });
 
-test("subtracts the two numbers", () => {
+test("subtracts two numbers", () => {
   const result = subtract(2, 3);
   render(<Calculator initialResult={0} />);
   fireEvent.click(screen.getByRole("button", { name: /result/i }));
@@ -29,7 +29,7 @@ test("multiplies the two numbers", () => {
   expect(screen.getByText("=" + " " + result.toString())).toBeInTheDocument();
 });
 
-test("divides the two numbers", () => {
+test("divides two numbers", () => {
   const result = divide(2, 3);
   render(<Calculator initialResult={0} />);
   fireEvent.click(screen.getByRole("button", { name: /result/i }));

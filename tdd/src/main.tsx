@@ -2,13 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { App } from "./App.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Calculator from "./pages/Calculator.tsx";
+import LandingPage from "./pages/LandingPage.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    children: [{ path: "/", element: <Calculator /> }],
+    children: [{ path: "/", element: <LandingPage /> }],
   },
 ]);
 
