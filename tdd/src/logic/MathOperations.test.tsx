@@ -1,9 +1,9 @@
-import { describe, test, expect } from "vitest0";
-import { sum, subtract, multiply, divide } from "./MathOperations";
+import { describe, test, expect } from "vitest";
+import {add, subtract, multiply, divide } from "./MathOperations";
 
 describe("Math Operations", () => {
   test("adds two numbers", () => {
-    expect(sum(2, 3)).toBe(5);
+    expect(add(2, 3)).toBe(5);
   });
 
   test("subtract two numbers", () => {

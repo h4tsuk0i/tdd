@@ -1,6 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import Calculator from "./Calculator";
-import { sum, subtract, divide, multiply } from "../logic/MathOperations";
 
 const setup = () => {
   render(<Calculator />);
