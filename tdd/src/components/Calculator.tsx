@@ -12,7 +12,9 @@ const Calculator = () => {
   let result: number | null = null;
   let error: string | null = null;
 
-  try {
+  if (operation === "divide" && b === 0) {
+    error = "Cannot divide by zero";
+  } else {
     switch (operation) {
       case "add":
         result = add(a, b);
@@ -29,11 +31,7 @@ const Calculator = () => {
       default:
         return null;
     }
-  } catch (err) {
-    error = (err as Error).message;
-    return null;
   }
-
   return (
     <Box display="flex" justifyContent="center" alignItems="center">
       <Input
@@ -64,7 +62,7 @@ const Calculator = () => {
       {error ? (
         <Typography role="alert">{error}</Typography>
       ) : (
-        <Typography>Result: {result}</Typography>
+        <Typography margin="0.5rem">Result: {result}</Typography>
       )}
     </Box>
   );
