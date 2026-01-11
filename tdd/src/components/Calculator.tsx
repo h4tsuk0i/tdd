@@ -8,33 +8,34 @@ const Calculator = () => {
   const [a, setA] = useState(0);
   const [b, setB] = useState(0);
   const [operation, setOperation] = useState<Operation>("add");
-  const [error, setError] = useState<string | null>(null);
 
-  const calculate = (): number | null => {
-    try {
-      setError(null);
-      switch (operation) {
-        case "add":
-          return add(a, b);
-        case "subtract":
-          return subtract(a, b);
-        case "multiply":
-          return multiply(a, b);
-        case "divide":
-          return divide(a, b);
-        default:
-          return null;
-      }
-    } catch (err) {
-      setError((err as Error).message);
-      return null;
+  let result: number | null = null;
+  let error: string | null = null;
+
+  try {
+    switch (operation) {
+      case "add":
+        result = add(a, b);
+        break;
+      case "subtract":
+        result = subtract(a, b);
+        break;
+      case "multiply":
+        result = multiply(a, b);
+        break;
+      case "divide":
+        result = divide(a, b);
+        break;
+      default:
+        return null;
     }
-  };
-
-  const result = calculate();
+  } catch (err) {
+    error = (err as Error).message;
+    return null;
+  }
 
   return (
-    <Box>
+    <Box display="flex" justifyContent="center" alignItems="center">
       <Input
         aria-label="first number"
         type="number"
