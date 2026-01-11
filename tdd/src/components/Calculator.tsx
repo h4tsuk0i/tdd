@@ -1,4 +1,12 @@
-import { Box, Input, MenuItem, Select, Typography } from "@mui/material";
+import {
+  Box,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  OutlinedInput,
+  Select,
+  Typography,
+} from "@mui/material";
 import { useState } from "react";
 import { add, subtract, multiply, divide } from "../logic/MathOperations";
 
@@ -34,33 +42,56 @@ const Calculator = () => {
   }
   return (
     <Box display="flex" justifyContent="center" alignItems="center">
-      <Input
-        aria-label="first number"
-        type="number"
-        value={a}
-        onChange={(e) => setA(Number(e.target.value))}
-      />
+      <FormControl>
+        <InputLabel id="first-number-label">First number</InputLabel>
+        <Box margin="0.5rem">
+          <OutlinedInput
+            id="first-number-input"
+            label="First number"
+            aria-label="first number"
+            aria-labelledby="first-number-label"
+            type="text"
+            inputMode="numeric"
+            value={a}
+            onChange={(e) => setA(Number(e.target.value))}
+          />
+        </Box>
+      </FormControl>
 
+      <InputLabel id="operation-label">Operation</InputLabel>
       <Select
         aria-label="operation"
+        label="Operation"
+        labelId="operation-label"
         value={operation}
         onChange={(e) => setOperation(e.target.value as Operation)}
       >
         <MenuItem value="add">+</MenuItem>
-        <MenuItem value="subtract">-</MenuItem>
+        <MenuItem value="subtract">−</MenuItem>
         <MenuItem value="multiply">×</MenuItem>
         <MenuItem value="divide">÷</MenuItem>
       </Select>
 
-      <Input
-        aria-label="second number"
-        type="number"
-        value={b}
-        onChange={(e) => setB(Number(e.target.value))}
-      />
+      <FormControl>
+        <InputLabel id="second-number-label">Second number</InputLabel>
+        <Box margin="0.5rem">
+          <OutlinedInput
+            id="second-number-input"
+            label="Second number"
+            aria-label="second number"
+            aria-labelledby="second-number-label"
+            type="text"
+            inputMode="numeric"
+            value={b}
+            onChange={(e) => setB(Number(e.target.value))}
+          />
+        </Box>
+      </FormControl>
 
       {error ? (
-        <Typography role="alert">{error}</Typography>
+        <Typography role="alert" margin="0.5rem">
+          {error}
+        </Typography>
       ) : (
         <Typography margin="0.5rem">Result: {result}</Typography>
       )}

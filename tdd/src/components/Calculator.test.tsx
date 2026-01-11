@@ -1,63 +1,87 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import Calculator from "./Calculator";
 
-const setup = () => {
+const setup = async () => {
+  const user = userEvent.setup();
   render(<Calculator />);
-  const first = screen.getByLabelText("first number");
-  const second = screen.getByLabelText("second number");
-  const operation = screen.getByLabelText("operation");
 
-  return { first, second, operation };
+  const first = screen.getByLabelText("First number") as HTMLInputElement;
+  const second = screen.getByLabelText("Second number") as HTMLInputElement;
+
+  return { user, first, second };
+};
+
+const clearAndType = async (
+  user: ReturnType<typeof userEvent.setup>,
+  input: HTMLInputElement,
+  value: string
+) => {
+  await user.click(input);
+  await user.keyboard("{Control>}{a}{/Control}{Backspace}");
+  await user.type(input, value);
+};
+
+const selectOperation = async (
+  user: ReturnType<typeof userEvent.setup>,
+  symbol: "+" | "−" | "×" | "÷"
+) => {
+  await user.click(screen.getByRole("combobox", { name: /operation/i }));
+
+  const listbox = await screen.findByRole("listbox");
+
+  await user.click(within(listbox).getByText(symbol));
 };
 
 describe("<Calculator />", () => {
-  test("add two numbers", () => {
-    const { first, second } = setup();
+  test("add two numbers", async () => {
+    const { user, first, second } = await setup();
 
-    fireEvent.change(first, { target: { value: "2" } });
-    fireEvent.change(second, { target: { value: "3" } });
+    await selectOperation(user, "+");
+    await clearAndType(user, first, "2");
+    await clearAndType(user, second, "3");
 
     expect(screen.getByText("Result: 5")).toBeInTheDocument();
   });
 
-  test("subtract two numbers", () => {
-    const { first, second, operation } = setup();
+  test("subtract two numbers", async () => {
+    const { user, first, second } = await setup();
 
-    fireEvent.change(operation, { target: { value: "subtract" } });
-    fireEvent.change(first, { target: { value: "5" } });
-    fireEvent.change(second, { target: { value: "3" } });
+    await selectOperation(user, "−");
+    await clearAndType(user, first, "5");
+    await clearAndType(user, second, "3");
 
     expect(screen.getByText("Result: 2")).toBeInTheDocument();
   });
 
-  test("multiply two numbers", () => {
-    const { first, second, operation } = setup();
+  test("multiply two numbers", async () => {
+    const { user, first, second } = await setup();
 
-    fireEvent.change(operation, { target: { value: "multiply" } });
-    fireEvent.change(first, { target: { value: "2" } });
-    fireEvent.change(second, { target: { value: "3" } });
+    await selectOperation(user, "×");
+    await clearAndType(user, first, "2");
+    await clearAndType(user, second, "3");
 
     expect(screen.getByText("Result: 6")).toBeInTheDocument();
   });
 
-  test("divide two numbers", () => {
-    const { first, second, operation } = setup();
+  test("divide two numbers", async () => {
+    const { user, first, second } = await setup();
 
-    fireEvent.change(operation, { target: { value: "division" } });
-    fireEvent.change(first, { target: { value: "24" } });
-    fireEvent.change(second, { target: { value: "6" } });
+    await selectOperation(user, "÷");
+    await clearAndType(user, first, "24");
+    await clearAndType(user, second, "6");
 
     expect(screen.getByText("Result: 4")).toBeInTheDocument();
   });
 
-  test("erorr when dividing by zero", () => {
-    const { first, second, operation } = setup();
+  test("erorr when dividing by zero", async () => {
+    const { user, first, second } = await setup();
 
-    fireEvent.change(operation, { target: { value: "division" } });
-    fireEvent.change(first, { target: { value: "24" } });
-    fireEvent.change(second, { target: { value: "0" } });
+    await selectOperation(user, "÷");
+    await clearAndType(user, first, "24");
+    await clearAndType(user, second, "0");
 
-    expect(screen.getByRole("altert")).toHaveTextContent(
+    expect(screen.getByRole("alert")).toHaveTextContent(
       "Cannot divide by zero"
     );
   });
