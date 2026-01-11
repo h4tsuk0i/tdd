@@ -41,7 +41,7 @@ describe("<Calculator />", () => {
     await clearAndType(user, first, "2");
     await clearAndType(user, second, "3");
 
-    expect(screen.getByText("Result: 5")).toBeInTheDocument();
+    expect(screen.getByText("= 5")).toBeInTheDocument();
   });
 
   test("subtract two numbers", async () => {
@@ -51,7 +51,7 @@ describe("<Calculator />", () => {
     await clearAndType(user, first, "5");
     await clearAndType(user, second, "3");
 
-    expect(screen.getByText("Result: 2")).toBeInTheDocument();
+    expect(screen.getByText("= 2")).toBeInTheDocument();
   });
 
   test("multiply two numbers", async () => {
@@ -61,7 +61,7 @@ describe("<Calculator />", () => {
     await clearAndType(user, first, "2");
     await clearAndType(user, second, "3");
 
-    expect(screen.getByText("Result: 6")).toBeInTheDocument();
+    expect(screen.getByText("= 6")).toBeInTheDocument();
   });
 
   test("divide two numbers", async () => {
@@ -71,7 +71,7 @@ describe("<Calculator />", () => {
     await clearAndType(user, first, "24");
     await clearAndType(user, second, "6");
 
-    expect(screen.getByText("Result: 4")).toBeInTheDocument();
+    expect(screen.getByText("= 4")).toBeInTheDocument();
   });
 
   test("erorr when dividing by zero", async () => {

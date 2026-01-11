@@ -41,48 +41,57 @@ const Calculator = () => {
     }
   }
   return (
-    <Box display="flex" justifyContent="center" alignItems="center">
+    <Box display="flex" alignContent="center" justifyContent="center">
       <FormControl>
-        <InputLabel id="first-number-label">First number</InputLabel>
+        <InputLabel id="first-number-label" shrink>
+          First number
+        </InputLabel>
         <Box margin="0.5rem">
           <OutlinedInput
             id="first-number-input"
+            notched
             label="First number"
             aria-label="first number"
             aria-labelledby="first-number-label"
             type="text"
             inputMode="numeric"
-            value={a}
             onChange={(e) => setA(Number(e.target.value))}
           />
         </Box>
       </FormControl>
 
-      <InputLabel id="operation-label">Operation</InputLabel>
-      <Select
-        aria-label="operation"
-        label="Operation"
-        labelId="operation-label"
-        value={operation}
-        onChange={(e) => setOperation(e.target.value as Operation)}
-      >
-        <MenuItem value="add">+</MenuItem>
-        <MenuItem value="subtract">−</MenuItem>
-        <MenuItem value="multiply">×</MenuItem>
-        <MenuItem value="divide">÷</MenuItem>
-      </Select>
+      <FormControl sx={{ padding: 0.5, margin: 0.5, width: 0.05 }}>
+        <InputLabel id="operation-label" shrink>
+          Operation
+        </InputLabel>
+        <Select
+          notched
+          aria-label="operation"
+          label="Operation"
+          labelId="operation-label"
+          value={operation}
+          onChange={(e) => setOperation(e.target.value as Operation)}
+        >
+          <MenuItem value="add">+</MenuItem>
+          <MenuItem value="subtract">−</MenuItem>
+          <MenuItem value="multiply">×</MenuItem>
+          <MenuItem value="divide">÷</MenuItem>
+        </Select>
+      </FormControl>
 
       <FormControl>
-        <InputLabel id="second-number-label">Second number</InputLabel>
+        <InputLabel id="second-number-label" variant="outlined" shrink>
+          Second number
+        </InputLabel>
         <Box margin="0.5rem">
           <OutlinedInput
             id="second-number-input"
+            notched
             label="Second number"
             aria-label="second number"
             aria-labelledby="second-number-label"
             type="text"
             inputMode="numeric"
-            value={b}
             onChange={(e) => setB(Number(e.target.value))}
           />
         </Box>
@@ -93,7 +102,9 @@ const Calculator = () => {
           {error}
         </Typography>
       ) : (
-        <Typography margin="0.5rem">Result: {result}</Typography>
+        <Typography margin="1rem" padding="0.5rem">
+          = {result}
+        </Typography>
       )}
     </Box>
   );

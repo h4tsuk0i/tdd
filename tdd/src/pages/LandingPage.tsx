@@ -3,7 +3,7 @@ import Calculator from "../components/Calculator";
 
 const LandingPage = () => {
   return (
-    <Box display="flex" justifyContent="center" alignItems="center">
+    <Box>
       <Calculator />
     </Box>
   );
