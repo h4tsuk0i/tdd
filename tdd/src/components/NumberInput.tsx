@@ -1,4 +1,3 @@
-import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import OutlinedInput from "@mui/material/OutlinedInput";
 
