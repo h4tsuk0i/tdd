@@ -1,5 +1,6 @@
 import {
   Box,
+  Container,
   FormControl,
   InputLabel,
   MenuItem,
@@ -9,12 +10,13 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { add, subtract, multiply, divide } from "../logic/MathOperations";
+import NumberInput from "./NumberInput";
 
 type Operation = "add" | "subtract" | "multiply" | "divide";
 
 const Calculator = () => {
-  const [a, setA] = useState(0);
-  const [b, setB] = useState(0);
+  const [a, setFirstNumber] = useState(0);
+  const [b, setSecondNumber] = useState(0);
   const [operation, setOperation] = useState<Operation>("add");
 
   let result: number | null = null;
@@ -41,72 +43,53 @@ const Calculator = () => {
     }
   }
   return (
-    <Box display="flex" alignContent="center" justifyContent="center">
+    <div style={{display: "flex", gap: "8px"}}>
       <FormControl>
-        <InputLabel id="first-number-label" shrink>
-          First number
-        </InputLabel>
-        <Box margin="0.5rem">
-          <OutlinedInput
-            id="first-number-input"
-            notched
-            label="First number"
-            aria-label="first number"
-            aria-labelledby="first-number-label"
-            type="text"
-            inputMode="numeric"
-            onChange={(e) => setA(Number(e.target.value))}
-          />
-        </Box>
-      </FormControl>
-
-      <FormControl sx={{ padding: 0.5, margin: 0.5, width: 0.05 }}>
-        <InputLabel id="operation-label" shrink>
-          Operation
-        </InputLabel>
-        <Select
-          notched
-          aria-label="operation"
-          label="Operation"
-          labelId="operation-label"
-          value={operation}
-          onChange={(e) => setOperation(e.target.value as Operation)}
-        >
-          <MenuItem value="add">+</MenuItem>
-          <MenuItem value="subtract">−</MenuItem>
-          <MenuItem value="multiply">×</MenuItem>
-          <MenuItem value="divide">÷</MenuItem>
-        </Select>
+       <NumberInput  id="first-number" label="First number" handleChange={(event) => setFirstNumber(Number(event.target.value))}/>
       </FormControl>
 
       <FormControl>
-        <InputLabel id="second-number-label" variant="outlined" shrink>
-          Second number
-        </InputLabel>
-        <Box margin="0.5rem">
-          <OutlinedInput
-            id="second-number-input"
+        <div>
+          <InputLabel id="operation-label" shrink>
+            Operation
+          </InputLabel>
+          <Select
             notched
-            label="Second number"
-            aria-label="second number"
-            aria-labelledby="second-number-label"
-            type="text"
-            inputMode="numeric"
-            onChange={(e) => setB(Number(e.target.value))}
-          />
-        </Box>
+            aria-label="operation"
+            label="Operation"
+            labelId="operation-label"
+            value={operation}
+            onChange={(e) => setOperation(e.target.value as Operation)}
+            sx={{height: "3em"}}
+          >
+            <MenuItem value="add">+</MenuItem>
+            <MenuItem value="subtract">−</MenuItem>
+            <MenuItem value="multiply">×</MenuItem>
+            <MenuItem value="divide">÷</MenuItem>
+          </Select>
+        </div>
       </FormControl>
 
+      <FormControl>
+      <NumberInput  id="second-number" label="Second number" handleChange={(event) => setSecondNumber(Number(event.target.value))}/>
+      </FormControl>
+      <FormControl>      
       {error ? (
-        <Typography role="alert" margin="0.5rem">
+        <Typography role="alert" padding="13px" paddingLeft="0px">
           {error}
         </Typography>
       ) : (
-        <Typography margin="1rem" padding="0.5rem">
+        <Typography
+          padding="13px"
+          alignContent="center"
+          paddingLeft="0px"
+          sx={{ color: "rgba(12, 12, 12, 1)" }}
+        >
           = {result}
         </Typography>
       )}
-    </Box>
+      </FormControl>
+    </div>
   );
 };
 

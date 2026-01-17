@@ -1,11 +1,11 @@
-import { Box } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import Calculator from "../components/Calculator";
 
 const LandingPage = () => {
   return (
-    <Box>
+    <Container sx={{minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center"}}>
       <Calculator />
-    </Box>
+    </Container>
   );
 };
 export default LandingPage;
