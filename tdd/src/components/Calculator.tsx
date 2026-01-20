@@ -8,37 +8,35 @@ import {
 import { useState } from "react";
 import { add, subtract, multiply, divide } from "../logic/MathOperations";
 import NumberInput from "./NumberInput";
+import { ResultButton } from "./ResultButton";
 
 type Operation = "add" | "subtract" | "multiply" | "divide";
 
 const Calculator = () => {
-  const [a, setFirstNumber] = useState(0);
-  const [b, setSecondNumber] = useState(0);
+  const [firstNumber, setFirstNumber] = useState(0);
+  const [secondNumber, setSecondNumber] = useState(0);
+  const [result, setResult] = useState(0);
   const [operation, setOperation] = useState<Operation>("add");
 
-  let result: number | null = null;
-  let error: string | null = null;
-
-  if (operation === "divide" && b === 0) {
-    error = "Cannot divide by zero";
-  } else {
-    switch (operation) {
-      case "add":
-        result = add(a, b);
-        break;
-      case "subtract":
-        result = subtract(a, b);
-        break;
-      case "multiply":
-        result = multiply(a, b);
-        break;
-      case "divide":
-        result = divide(a, b);
-        break;
-      default:
-        return null;
+  const handleMathOperation = () => {
+      switch (operation) {
+        case "add":
+          setResult(add(firstNumber, secondNumber));
+          break;
+        case "subtract":
+          setResult(subtract(firstNumber, secondNumber));
+          break;
+        case "multiply":
+          setResult(multiply(firstNumber, secondNumber));
+          break;
+        case "divide":
+          setResult(divide(firstNumber, secondNumber));
+          break;
+        default:
+          return null;
     }
   }
+
   return (
     <div style={{display: "flex", gap: "8px"}}>
       <FormControl>
@@ -70,22 +68,15 @@ const Calculator = () => {
       <FormControl>
       <NumberInput  id="second-number" label="Second number" handleChange={(event) => setSecondNumber(Number(event.target.value))}/>
       </FormControl>
+
       <FormControl>      
-      {error ? (
-        <Typography role="alert" padding="13px" paddingLeft="0px">
-          {error}
-        </Typography>
-      ) : (
-        <Typography
-          padding="13px"
-          alignContent="center"
-          paddingLeft="0px"
-          sx={{ color: "rgba(12, 12, 12, 1)" }}
-        >
-          = {result}
-        </Typography>
-      )}
+      <ResultButton id ="result-button" label="Result button" handleClick={handleMathOperation}/>
       </FormControl>
+
+      <FormControl>
+      <Typography sx={{paddingTop: "0.75em"}}>{result}</Typography>
+      </FormControl>
+      
     </div>
   );
 };
