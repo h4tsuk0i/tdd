@@ -19,28 +19,37 @@ const Calculator = () => {
   const [operation, setOperation] = useState<Operation>("add");
 
   const handleMathOperation = () => {
-      switch (operation) {
-        case "add":
-          setResult(add(firstNumber, secondNumber));
-          break;
-        case "subtract":
-          setResult(subtract(firstNumber, secondNumber));
-          break;
-        case "multiply":
-          setResult(multiply(firstNumber, secondNumber));
-          break;
-        case "divide":
-          setResult(divide(firstNumber, secondNumber));
-          break;
-        default:
-          return null;
+    switch (operation) {
+      case "add":
+        setResult(add(firstNumber, secondNumber));
+        break;
+      case "subtract":
+        setResult(subtract(firstNumber, secondNumber));
+        break;
+      case "multiply":
+        setResult(multiply(firstNumber, secondNumber));
+        break;
+      case "divide":
+        setResult(divide(firstNumber, secondNumber));
+        break;
+      default:
+        return null;
     }
-  }
+  };
 
   return (
-    <div style={{display: "flex", gap: "8px"}}>
+    <div
+      style={{
+        display: "flex",
+        gap: "8px",
+      }}
+    >
       <FormControl>
-       <NumberInput  id="first-number" label="First number" handleChange={(event) => setFirstNumber(Number(event.target.value))}/>
+        <NumberInput
+          id="first-number"
+          label="First number"
+          handleChange={(event) => setFirstNumber(Number(event.target.value))}
+        />
       </FormControl>
 
       <FormControl>
@@ -55,7 +64,7 @@ const Calculator = () => {
             labelId="operation-label"
             value={operation}
             onChange={(e) => setOperation(e.target.value as Operation)}
-            sx={{height: "3em"}}
+            sx={{ height: "3em" }}
           >
             <MenuItem value="add">+</MenuItem>
             <MenuItem value="subtract">−</MenuItem>
@@ -66,17 +75,24 @@ const Calculator = () => {
       </FormControl>
 
       <FormControl>
-      <NumberInput  id="second-number" label="Second number" handleChange={(event) => setSecondNumber(Number(event.target.value))}/>
-      </FormControl>
-
-      <FormControl>      
-      <ResultButton id ="result-button" label="Result button" handleClick={handleMathOperation}/>
+        <NumberInput
+          id="second-number"
+          label="Second number"
+          handleChange={(event) => setSecondNumber(Number(event.target.value))}
+        />
       </FormControl>
 
       <FormControl>
-      <Typography sx={{paddingTop: "0.75em"}}>{result}</Typography>
+        <ResultButton
+          id="result-button"
+          label="Result button"
+          handleClick={handleMathOperation}
+        />
       </FormControl>
-      
+
+      <FormControl>
+        <Typography sx={{ paddingTop: "0.75em" }}>{result}</Typography>
+      </FormControl>
     </div>
   );
 };

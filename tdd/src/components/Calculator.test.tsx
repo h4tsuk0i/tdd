@@ -15,7 +15,7 @@ const setup = async () => {
 const clearAndType = async (
   user: ReturnType<typeof userEvent.setup>,
   input: HTMLInputElement,
-  value: string
+  value: string,
 ) => {
   await user.click(input);
   await user.keyboard("{Control>}{a}{/Control}{Backspace}");
@@ -24,7 +24,7 @@ const clearAndType = async (
 
 const selectOperation = async (
   user: ReturnType<typeof userEvent.setup>,
-  symbol: "+" | "−" | "×" | "÷"
+  symbol: "+" | "−" | "×" | "÷",
 ) => {
   await user.click(screen.getByRole("combobox", { name: /operation/i }));
 
